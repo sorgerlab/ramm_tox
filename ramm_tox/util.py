@@ -10,7 +10,9 @@ def init_paths():
     project_path = Path(__file__).absolute().ancestor(2)
     output_path = project_path.child('output')
     # DATA_PATH must point to the external data directory.
-    data_path = Path(os.getenv('DATA_PATH'))
+    data_path = None
+    if 'DATA_PATH' in os.environ:
+        data_path = Path(os.environ['DATA_PATH'])
     if data_path is None or not data_path.exists():
         raise RuntimeError(
             "The environment variable 'DATA_PATH' must contain the path to the "
