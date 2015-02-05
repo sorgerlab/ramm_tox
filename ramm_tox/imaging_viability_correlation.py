@@ -24,10 +24,10 @@ imaging_data = imaging_data[imaging_filter_no_media]
 imaging_data.pert_dose = round_concentration(imaging_data.pert_dose)
 
 viability_single = viability_data[viability_data.name == 'Omeprazole'] \
-    [['dose', 'average']].pivot_table(rows='dose').average
+    [['dose', 'average']].pivot_table(index='dose').average
 imaging_single = imaging_data[imaging_data.pert_iname == 'Omeprazole'] \
     .drop('pert_iname', axis=1).rename(columns=({'pert_dose': 'dose'})) \
-    .pivot_table(rows='dose', cols='Timepoint [h]')
+    .pivot_table(index='dose', columns='Timepoint [h]')
 corr_single = imaging_single.corrwith(viability_single)
 
 np.random.seed(0)
